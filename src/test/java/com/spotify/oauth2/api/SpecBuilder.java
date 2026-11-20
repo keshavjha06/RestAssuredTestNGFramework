@@ -8,6 +8,8 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
+import com.spotify.oauth2.utils.Secrets;
+
 import static com.spotify.oauth2.api.Route.BASE_PATH;
 
 public class SpecBuilder {
@@ -15,8 +17,7 @@ public class SpecBuilder {
 
     public static RequestSpecification getRequestSpec() {
         return new RequestSpecBuilder().
-                setBaseUri(System.getProperty("BASE_URI")).
-                //setBaseUri("https://api.spotify.com").
+                setBaseUri(Secrets.baseUri()).
                 setBasePath(BASE_PATH).
                 setContentType(ContentType.JSON).
                 addFilter(new AllureRestAssured()).
@@ -26,8 +27,7 @@ public class SpecBuilder {
 
     public static RequestSpecification getAccountRequestSpec() {
         return new RequestSpecBuilder().
-                setBaseUri(System.getProperty("ACCOUNT_BASE_URI")).
-              //  setBaseUri("https://accounts.spotify.com").
+                setBaseUri(Secrets.accountBaseUri()).
                 setContentType(ContentType.URLENC).
                 addFilter(new AllureRestAssured()).
                 log(LogDetail.ALL).

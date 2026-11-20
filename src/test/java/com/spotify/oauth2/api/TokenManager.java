@@ -1,6 +1,6 @@
 package com.spotify.oauth2.api;
 
-import com.spotify.oauth2.utils.ConfigLoader;
+import com.spotify.oauth2.utils.Secrets;
 import io.restassured.response.Response;
 
 import java.time.Instant;
@@ -23,8 +23,7 @@ public class TokenManager {
             }
         }
         catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("ABORT!!! Failed to get token");
+            throw new RuntimeException("ABORT!!! Failed to get token", e);
         }
         return access_token;
     }
@@ -32,10 +31,10 @@ public class TokenManager {
 
     private static Response renewToken(){
         HashMap<String, String> formParams = new HashMap<String, String>();
-        formParams.put("client_id", ConfigLoader.getInstance().getClientId());
-        formParams.put("client_secret", ConfigLoader.getInstance().getClientSecret());
-        formParams.put("refresh_token", ConfigLoader.getInstance().getRefreshToken());
-        formParams.put("grant_type", ConfigLoader.getInstance().getGrantType());
+        formParams.put("client_id", Secrets.clientId());
+        formParams.put("client_secret", Secrets.clientSecret());
+        formParams.put("refresh_token", Secrets.refreshToken());
+        formParams.put("grant_type", Secrets.grantType());
 
          Response response = RestResource.postAccount(formParams);
 
