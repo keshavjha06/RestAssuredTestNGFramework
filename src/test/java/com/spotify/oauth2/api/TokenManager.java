@@ -1,16 +1,10 @@
 package com.spotify.oauth2.api;
 
 import com.spotify.oauth2.utils.ConfigLoader;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 
 import java.time.Instant;
 import java.util.HashMap;
-
-import static com.spotify.oauth2.api.SpecBuilder.getResponseSpec;
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.responseSpecification;
 
 public class TokenManager {
     private static String access_token;
